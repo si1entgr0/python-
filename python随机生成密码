@@ -1,0 +1,21 @@
+# 随机生成10位包含大写，小写，数字和字符的密码
+# 转载：https://www.cnblogs.com/niuniu2018/p/7696409.html
+import random,string
+
+count = input('请输入你要产生多少条密码：').strip()
+all_passwds = []
+for i in range(int(count)):
+    num = random.sample(string.digits,1) #随机取1位数字
+    lower = random.sample(string.ascii_lowercase,1) #随机取1位小写字母
+    upper = random.sample(string.ascii_uppercase,1) #随机取1位大写字母
+    zifu1 = random.sample('!@#$%^&*()',1) #随机生成1个字符
+    zifu2 = random.sample('!@#$%^&*()',1) #随机生成1个字符
+    other = random.sample(string.ascii_letters+string.digits,5) #随机取5位
+    res = num+zifu1+lower+zifu2+upper+other  #产生的10位密码
+    res = ''.join(res)+'\n'
+    print('res: ',res)
+    if res not in all_passwds: #判断是否重复
+        all_passwds.append(res)
+with open('passwds.txt','a+') as fw:
+    fw.seek(0)
+    fw.writelines(all_passwds)
